@@ -31,7 +31,6 @@ resource "aws_db_instance" "mysql" {
   username             = "foo"
   password             = "foobarbaz"
   parameter_group_name = "default.mysql5.7"
-  skip_final_snapshot  = false
   tags = {
     Name = "My MySQL DB"
   }
@@ -63,3 +62,36 @@ resource "aws_db_instance" "example1" {
     command = "mysql -h ${aws_db_instance.example.endpoint} -u ${aws_db_instance.example.username} -p${aws_db_instance.example.password} -e 'CREATE TABLE users (username VARCHAR(255), UID VARCHAR(255), GID VARCHAR(255), homedir VARCHAR(255))'"
   }
 }
+
+
+# 4) Create devx database and table users in it. The table should be with username, UID, GID, homedir columns
+# resource "mysql_database" "devx" {
+#   name = "devx"
+# }
+
+# resource "mysql_table" "users" {
+#   name     = "users"
+#   database = mysql_database.devx.name
+
+#   column {
+#     name = "username"
+#     type = "VARCHAR(255)"
+#   }
+
+#   column {
+#     name = "UID"
+#     type = "INT(11)"
+#   }
+
+#   column {
+#     name = "GID"
+#     type = "INT(11)"
+#   }
+
+#   column {
+#     name = "homedir"
+#     type = "VARCHAR(255)"
+#   }
+
+# }
+
