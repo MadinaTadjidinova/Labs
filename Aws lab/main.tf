@@ -57,6 +57,8 @@ resource "aws_db_instance" "example1" {
   username             = "admin"
   password             = "password"
   parameter_group_name = "default.mysql8.0"
+  skip_final_snapshot  = false
+  final_snapshot_identifier = "example1-final-snapshot"
 
   provisioner "local-exec" {
     command = "mysql -h ${aws_db_instance.example.endpoint} -u ${aws_db_instance.example.username} -p${aws_db_instance.example.password} -e 'CREATE TABLE users (username VARCHAR(255), UID VARCHAR(255), GID VARCHAR(255), homedir VARCHAR(255))'"

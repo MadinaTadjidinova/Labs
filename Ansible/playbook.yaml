@@ -1,0 +1,35 @@
+- name: Install Apache web server on the client and deploy index.html
+  hosts: slave3
+  become: yes
+  serial: 1
+  tasks:
+    - name: "apt-get update"
+      apt:
+        update_cache: yes
+
+    - name: "Install Apache"
+      apt:
+        name: apache2
+        state: present
+
+    - name: "Create index.html file"
+      lineinfile:
+        path: /var/www/html/index.html
+        line: "Hello world from {{ ansible_host }}"
+
+- name: Insert user information into devx.users table
+  hosts: slave1
+  vars:
+    username: "Madina"
+    uid: 1001
+    gid: 1001
+    homedir: "/home/madina"
+  tasks:
+    - name: Insert user information into devx.users table
+      mysql_db:
+        login_host: 172.31.85.119
+        login_user: root
+        login_password: madina
+        name: devx
+        state: present
+        target: INSERT INTO users (username, uid, gid, homedir) VALUES ('{{ username }}', '{{ uid }}', '{{ gid }}', '{{ homedir }}')
