@@ -1,3 +1,5 @@
+# There have 4 instances one of them master(main) and others slaves(1,2,3) 
+# I was work on master and create html file in slave3(slave 3 include slave(1,2,3))
 - name: Install Apache web server on the client and deploy index.html
   hosts: slave3
   become: yes
